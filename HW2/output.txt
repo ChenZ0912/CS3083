@@ -1,0 +1,75 @@
+USE university;
+SELECT ID
+FROM STUDENT 
+WHERE dept_name='Comp. Sci.';
+
+INSERT INTO Person
+	VALUES ("Chen", "Zhou", "Junior");
+
+INSERT INTO Person
+	VALUES("Junli", "Wu", "Junior");
+
+INSERT INTO Person
+	VALUES("Xinyi", "Shen", "Freshman");
+
+INSERT INTO PhoneNumbers
+	VALUES("Chen", "Zhou", 646444);
+
+INSERT INTO PhoneNumbers
+	VALUES("Chen", "Zhou", 646555);
+
+INSERT INTO PhoneNumbers
+	VALUES("Chen", "Zhou", 646666);
+
+INSERT INTO PhoneNumbers
+	VALUES("Xinyi", "Shen", 646333);
+
+INSERT INTO PhoneNumbers
+	VALUES("Junli", "Wu", 646222);
+INSERT INTO Watches 
+	VALUES("Chen", "Zhou", "Game of Thornes", 2011, 6);
+    
+INSERT INTO Watches
+	VALUES("Chen", "Zhou", "Doctor Who", 1963, 7);
+    
+INSERT INTO Watches
+	VALUES("Junli", "Wu", "GLOW", 2017, 7);
+    
+INSERT INTO Watches
+	VALUES("Junli", "Wu", "Ozark", 2017, 5);SELECT title 
+FROM TVSeries
+WHERE num_seasons >= 10;SELECT title
+FROM TVSeries
+WHERE year + num_seasons = 2018;SELECT first_name
+FROM Watches
+WHERE title = "The Big Bang" and year = 2007;SELECT Person.phone_number, Person.first_name, Person.last_name
+FROM Person LEFT JOIN Watches ON Person.first_name = Watches.first_name AND Person.last_name = Watches.last_name
+WHERE Watches.title = "The Big Bang" and year = 2007;SELECT DISTINCT Person.phone_number
+FROM Person LEFT JOIN Watches ON Person.first_name = Watches.first_name AND Person.last_name = Watches.last_name
+WHERE Watches.title = "The Big Bang" and year = 2007;SELECT ID, NAME 
+FROM STUDENT
+WHERE DEPT_NAME = 'Comp. Sci.' AND TOT_CRED < 60;SELECT ID
+FROM TAKES
+WHERE COURSE_ID = 'CS-101' AND GRADE = 'A'SELECT ID
+FROM TAKES
+WHERE YEAR = '2009' AND GRADE = 'A' AND SEMESTER = 'Fall';SELECT STUDENT.NAME, STUDENT.ID
+FROM STUDENT  LEFT JOIN TAKES ON STUDENT.ID = TAKES.ID
+WHERE TAKES.GRADE = 'A' AND TAKES.COURSE_ID = 'CS-101';
+
+
+SELECT STUDENT.NAME, STUDENT.ID
+FROM TAKES  LEFT JOIN STUDENT ON STUDENT.ID = TAKES.ID
+WHERE TAKES.GRADE = 'A' AND (TAKES.COURSE_ID = 'CS-101' OR TAKES.COURSE_ID = 'CS-190');
+
+
+SELECT DISTINCT instructor.ID, instructor.name
+FROM instructor LEFT JOIN teaches ON instructor.ID = teaches.ID
+WHERE teaches.course_id LIKE '%CS%';SELECT student.name, student.id
+FROM student LEFT JOIN takes ON student.id = takes.id 
+						LEFT JOIN teaches ON takes.course_id = teaches.course_id 
+						LEFT JOIN instructor ON teaches.id = instructor.id
+WHERE instructor.salary > 75000SELECT DISTINCT instructor.id,  instructor.name
+FROM instructor  LEFT JOIN teaches on instructor.id = teaches.id
+							 LEFT JOIN section ON teaches.sec_id = section.sec_id
+							 LEFT JOIN classroom on section.building = classroom.building
+WHERE classroom.building = 'Taylor'
